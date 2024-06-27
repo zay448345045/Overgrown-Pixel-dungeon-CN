@@ -27,8 +27,8 @@ package com.overgrownpixel.overgrownpixeldungeon.messages;
 import java.util.Locale;
 
 public enum Languages {
-	ENGLISH("english",      "",   Status.REVIEWED,   null, null);
-	
+	ENGLISH("english",      "",   Status.REVIEWED,   null, null),
+	CHINESE("中文",         "zh", Status.REVIEWED, new String[]{"Jinkeloid(zdx00793)"}, new String[]{"931451545", "HoofBumpBlurryface", "Lery", "Lyn-0401", "ShatteredFlameBlast", "endlesssolitude", "hmdzl001", "tempest102", "MSRDLing"});
 	/**KOREAN("한국어",         "ko", Status.REVIEWED,  new String[]{"Flameblast12"}, new String[]{"Cocoa", "Korean2017", "WondarRabb1t", "ddojin0115", "eeeei", "hancyel", "linterpreteur", "lsiebnie" }),
 	RUSSIAN("русский",      "ru", Status.UNREVIEWED, new String[]{"ConsideredHamster", "Inevielle", "yarikonline"}, new String[]{"AttHawk46", "HerrGotlieb", "HoloTheWise", "JleHuBbluKoT", "MrXantar", "Raymundo", "Shamahan", "apxwn", "roman.yagodin", "un_logic", "Вoвa"}),
 	GERMAN("deutsch",       "de", Status.INCOMPLETE, new String[]{"Dallukas", "KrystalCroft", "Wuzzy", "Zap0", "bernhardreiter", "davedude"}, new String[]{"Ceeee", "DarkPixel", "ErichME", "LenzB", "Sarius", "SirEddi", "Sorpl3x", "ThunfischGott", "Topicranger", "apxwn", "gekko303", "johannes.schobel", "oragothen", "spixi"}),
@@ -37,7 +37,7 @@ public enum Languages {
 	PORTUGUESE("português", "pt", Status.UNREVIEWED, new String[]{"Chacal.Ex", "TDF2001", "matheus208"}, new String[]{"Bigode935", "ChainedFreaK", "JST", "MadHorus", "Matie", "Tio_P_(Krampus)", "ancientorange", "danypr23", "denis.gnl", "ismael.henriques12", "mfcord", "owenreilly", "rafazago", "try31"}),
 	POLISH("polski",        "pl", Status.UNREVIEWED, new String[]{"Deksippos", "kuadziw", "szymex73"}, new String[]{"Chasseur", "Darden", "KarixDaii", "MJedi", "MrKukurykpl", "Peperos", "Scharnvirk", "VasteelXolotl", "bvader95", "dusakus", "michaub", "ozziezombie", "szczoteczka22", "transportowiec96"}),
 	ITALIAN("italiano",		"it", Status.REVIEWED, new String[]{"bizzolino", "funnydwarf"}, new String[]{"4est", "DaniMare", "Danzl", "andrearubbino00", "nessunluogo", "righi.a", "umby000"}),
-	CHINESE("中文",         "zh", Status.REVIEWED, new String[]{"Jinkeloid(zdx00793)"}, new String[]{"931451545", "HoofBumpBlurryface", "Lery", "Lyn-0401", "ShatteredFlameBlast", "endlesssolitude", "hmdzl001", "tempest102"}),
+
 	CZECH("čeština",        "cs", Status.REVIEWED,   new String[]{"ObisMike"}, new String[]{"AshenShugar", "Buba237", "JStrange", "RealBrofessor", "chuckjirka"}),
 	TURKISH("türkçe",       "tr", Status.INCOMPLETE, new String[]{"LokiofMillenium", "emrebnk"}, new String[]{"AGORAAA", "AcuriousPotato", "alpekin98", "denizakalin", "melezorus34", "mitux"}),
 	FINNISH("suomi", 		"fi", Status.INCOMPLETE, new String[]{"TenguTheKnight"}, null ),
