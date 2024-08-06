@@ -6,7 +6,7 @@ android {
     defaultConfig {
         resConfigs "en_US", "de"
         //noinspection MinSdkTooLow
-        minSdkVersion 14//19
+        minSdkVersion 19//19 14
         targetSdkVersion 28//33
     }
 
