@@ -48,7 +48,7 @@ public class DeviceCompat {
 
 		return BuildConfig.DEBUG;
 	}
-	*/
+	
 
 	public static void openURI( String URI ){
 		Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( URI ) );
