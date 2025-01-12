@@ -42,12 +42,14 @@ public class DeviceCompat {
 	public static boolean usesISO_8859_1(){
 		return Build.VERSION.SDK_INT == Build.VERSION_CODES.FROYO;
 	}
-	
+/*	
 	public static boolean isDebug(){
                 return Game.version.contains("INDEV");
+
 //		return BuildConfig.DEBUG;
 	}
-	
+	*/
+
 	public static void openURI( String URI ){
 		Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( URI ) );
 		Game.instance.startActivity( intent );
