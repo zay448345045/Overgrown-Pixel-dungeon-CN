@@ -26,7 +26,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
-import com.watabou.BuildConfig;
+//import com.watabou.BuildConfig;
 import com.watabou.noosa.Game;
 
 public class DeviceCompat {
