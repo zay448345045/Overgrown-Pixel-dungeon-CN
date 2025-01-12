@@ -38,7 +38,7 @@ compileOptions {
 
     defaultConfig {
 
-applicationId "com.watabou"
+//applicationId "com.watabou"
         //noinspection MinSdkTooLow
         minSdkVersion 19
 targetSdkVersion 35
