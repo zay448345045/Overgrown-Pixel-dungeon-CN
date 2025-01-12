@@ -1,7 +1,8 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 33
+    namespace 'com.overgrownpixel.overgrownpixeldungeon'
+    compileSdkVersion 35
 
 //    task ndkBuild(type: Exec){
 //        description "builds JNI libs from source. " +
