@@ -3,6 +3,7 @@ apply plugin: 'com.android.library'
 
 android {
     
+namespace 'com.watabou'
 compileOptions {
         sourceCompatibility = JavaVersion.VERSION_23
         targetCompatibility = JavaVersion.VERSION_23
@@ -43,7 +44,7 @@ compileOptions {
         minSdkVersion 19
 targetSdkVersion 35
     }
-namespace 'com.watabou'
+//namespace 'com.watabou'
 }
 
 dependencies {
