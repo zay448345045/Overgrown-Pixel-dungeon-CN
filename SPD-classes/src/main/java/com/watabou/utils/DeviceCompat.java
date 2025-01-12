@@ -44,7 +44,8 @@ public class DeviceCompat {
 	}
 	
 	public static boolean isDebug(){
-		return BuildConfig.DEBUG;
+                return Game.version.contains("INDEV");
+//		return BuildConfig.DEBUG;
 	}
 	
 	public static void openURI( String URI ){
@@ -78,7 +79,7 @@ public class DeviceCompat {
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-
+/*
 package com.watabou.utils;
 
 import com.badlogic.gdx.Gdx;
@@ -142,3 +143,4 @@ public class DeviceCompat {
         }
 
 }
+*/
