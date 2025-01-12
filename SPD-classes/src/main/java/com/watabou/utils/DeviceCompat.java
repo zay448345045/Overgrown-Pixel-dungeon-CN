@@ -26,7 +26,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
-import com.watabou.BuildConfig;
+//import com.watabou.BuildConfig;
 import com.watabou.noosa.Game;
 
 public class DeviceCompat {
@@ -46,7 +46,8 @@ public class DeviceCompat {
 	public static boolean isDebug(){
 //                return Game.version.contains("INDEV");
 
-		return BuildConfig.DEBUG;
+//		return BuildConfig.DEBUG;
+return true;
 	}
 	
 
