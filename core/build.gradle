@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 35//33
-//    namespace 'com.overgrownpixel.overgrownpixeldungeon'
+    namespace 'com.overgrownpixel.overgrownpixeldungeon'
     defaultConfig {
 applicationId "com.overgrownpixel.overgrownpixeldungeon"
         resConfigs "en_US", "de", "zh"
