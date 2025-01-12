@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 android {
-    namespace 'com.overgrownpixel.overgrownpixeldungeon'
+    namespace 'com.watabou'
     compileSdkVersion 35
 
 //    task ndkBuild(type: Exec){
