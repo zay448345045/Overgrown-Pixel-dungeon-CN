@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28//33
+    compileSdkVersion 35//33
 
     defaultConfig {
         resConfigs "en_US", "de"
         //noinspection MinSdkTooLow
         minSdkVersion 19//19 14
-        targetSdkVersion 28//33
+        targetSdkVersion 35//33
     }
 
     buildTypes {
