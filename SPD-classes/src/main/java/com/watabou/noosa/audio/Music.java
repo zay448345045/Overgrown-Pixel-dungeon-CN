@@ -43,6 +43,7 @@ public enum Music {
 	
 	private boolean enabled = true;
 	private float volume = 1f;
+	private TelephonyCallback telephonyCallback;
 	
 	public void play( String assetName, boolean looping ) {
 		
@@ -134,7 +135,7 @@ public enum Music {
 	public boolean isEnabled() {
 		return enabled;
 	}
-	
+/*	
 	public static final PhoneStateListener callMute = new PhoneStateListener(){
 		
 		@Override
@@ -152,7 +153,8 @@ public enum Music {
 			super.onCallStateChanged(state, incomingNumber);
 		}
 	};
-	
+ */
+	/*
 	public static void setMuteListener(){
 		//versions lower than this require READ_PHONE_STATE permission
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -161,6 +163,61 @@ public enum Music {
 			mgr.listen(Music.callMute, PhoneStateListener.LISTEN_CALL_STATE);
 		}
 	}
+	*/
+//	private TelephonyCallback telephonyCallback;
+
+    public void registerTelephonyCallback(Context context) {
+        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+
+        if (telephonyManager == null) {
+            Log.e("Music", "TelephonyManager is null");
+            return;
+        }
+
+        telephonyCallback = new TelephonyCallback() {
+            @Override
+            public void onCallStateChanged(int state, String phoneNumber) {
+                switch (state) {
+                    case TelephonyManager.CALL_STATE_IDLE:
+                        Log.d("Telephony", "CALL_STATE_IDLE");
+                        if (!Game.instance.isPaused()) {
+                            INSTANCE.resume();
+                        }
+                        break;
+                    case TelephonyManager.CALL_STATE_RINGING:
+                        Log.d("Telephony", "CALL_STATE_RINGING, Number: " + phoneNumber);
+                        INSTANCE.pause();
+                        break;
+                    case TelephonyManager.CALL_STATE_OFFHOOK:
+                        Log.d("Telephony", "CALL_STATE_OFFHOOK");
+                        INSTANCE.pause();
+                        break;
+                }
+            }
+        };
+
+        try {
+            telephonyManager.registerTelephonyCallback(context.getMainExecutor(), telephonyCallback);
+        } catch (SecurityException e) {
+            Log.e("Telephony", "SecurityException during callback registration: " + e.getMessage());
+        }
+    }
+
+    public void unregisterTelephonyCallback(Context context) {
+        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        if (telephonyManager != null && telephonyCallback != null) {
+            try {
+                telephonyManager.unregisterTelephonyCallback(telephonyCallback);
+            } catch (SecurityException e) {
+                Log.e("Telephony", "SecurityException during callback unregistration: " + e.getMessage());
+            }
+            telephonyCallback = null;
+        }
+    }
+//}
+
+
+
 }
 
 
