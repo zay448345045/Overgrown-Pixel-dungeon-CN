@@ -42,7 +42,9 @@ import com.watabou.utils.DeviceCompat;
 import javax.microedition.khronos.opengles.GL10;
 
 public class OvergrownPixelDungeon extends Game {
-	
+
+	private static final int REQUEST_READ_PHONE_NUMBERS = 1;
+
 	//variable constants for specific older versions of shattered, used for data conversion
 	//versions older than v0.6.5c are no longer supported, and data from them is ignored
 	public static final int v0_6_5c = 264;
@@ -53,6 +55,33 @@ public class OvergrownPixelDungeon extends Game {
 	public static final int v0_7_3  = 346;
 	
 	public OvergrownPixelDungeon() {
+private void checkPhoneNumbersPermission() {
+    if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_NUMBERS)
+            == PackageManager.PERMISSION_GRANTED) {
+        // 权限已授予，注册回调
+        Music.INSTANCE.registerTelephonyCallback(this);
+    } else {
+        // 请求权限
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.READ_PHONE_NUMBERS},
+                REQUEST_READ_PHONE_NUMBERS);
+    }
+}
+
+@Override
+public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    if (requestCode == REQUEST_READ_PHONE_NUMBERS) {
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            // 权限已授予，注册回调
+            Music.INSTANCE.registerTelephonyCallback(this);
+        } else {
+            // 权限被拒绝，处理逻辑，例如提示用户
+            Log.e("Permission", "READ_PHONE_NUMBERS permission denied.");
+            // 可以显示一个对话框告诉用户为什么需要这个权限
+        }
+    }
+}
 		super( sceneClass == null ? WelcomeScene.class : sceneClass );
 		
 		//v0.7.0
@@ -181,6 +210,7 @@ public class OvergrownPixelDungeon extends Game {
 			RenderedText.setFont( null );
 		}
 		
+checkPhoneNumbersPermission();
 	}
 
 	@Override
