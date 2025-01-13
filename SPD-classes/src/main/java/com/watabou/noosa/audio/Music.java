@@ -167,6 +167,10 @@ public enum Music {
 //	private TelephonyCallback telephonyCallback;
 
     public void registerTelephonyCallback(Context context) {
+	    if (context == null) {
+        Log.e("Music", "Context 为空，无法注册电话回调");
+        return;
+	    }
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 
         if (telephonyManager == null) {
