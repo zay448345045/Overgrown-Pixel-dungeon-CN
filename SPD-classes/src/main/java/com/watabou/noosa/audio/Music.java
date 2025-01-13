@@ -228,7 +228,10 @@ public void unregisterTelephonyCallback(Context context) {
         return;
     }
     TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-    telephonyManager?.unregisterTelephonyCallback(telephonyCallback);
+//    telephonyManager?.unregisterTelephonyCallback(telephonyCallback);
+if (telephonyManager != null) {
+    telephonyManager.unregisterTelephonyCallback(telephonyCallback);
+}	
     telephonyCallback = null;
 }
 
