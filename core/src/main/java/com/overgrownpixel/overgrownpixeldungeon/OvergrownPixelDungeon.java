@@ -273,7 +273,13 @@ if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permissio
         super.onDestroy(); // 必须调用 super.onDestroy()
 /* */
 if (Music.INSTANCE != null) { // 添加判空检查
+	Log.d("Permission", "onDestroy: about to unregister telephony callback"); // 取消注册前
+       
         Music.INSTANCE.unregisterTelephonyCallback(this); // 取消注册回调
+	Log.d("Permission", "onDestroy: telephony callback unregistered"); // 取消注册后
+    } else {
+        Log.d("Permission", "onDestroy: Music.INSTANCE is null, no need to unregister");
+}
  // onDestroy() 方法的结束括号
 }  
 /* */
