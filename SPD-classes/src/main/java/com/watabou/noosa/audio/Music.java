@@ -206,9 +206,10 @@ public enum Music {
             Log.e("Telephony", "SecurityException during callback registration: " + e.getMessage());
         }
     }
-
+/*
     public void unregisterTelephonyCallback(Context context) {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+telephonyManager?.unregisterTelephonyCallback(telephonyCallback);	    
         if (telephonyManager != null && telephonyCallback != null) {
             try {
                 telephonyManager.unregisterTelephonyCallback(telephonyCallback);
@@ -219,8 +220,17 @@ public enum Music {
         }
     }
 //}
-
-
+*/
+	
+public void unregisterTelephonyCallback(Context context) {
+    if(context == null){
+        Log.e("Telephony","context is null, cannot unregisterTelephonyCallback");
+        return;
+    }
+    TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+    telephonyManager?.unregisterTelephonyCallback(telephonyCallback);
+    telephonyCallback = null;
+}
 
 }
 
