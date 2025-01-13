@@ -41,6 +41,16 @@ import com.watabou.utils.DeviceCompat;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import androidx.core.content.ContextCompat;
+import androidx.core.app.ActivityCompat;
+import android.Manifest;
+import android.util.Log;
+
+import android.content.pm.PackageManager; // 添加这个 import，用于 PackageManager.PERMISSION_GRANTED
+
+import android.app.AlertDialog; // 如果使用对话框
+import androidx.annotation.NonNull;
+
 public class OvergrownPixelDungeon extends Game {
 
 	private static final int REQUEST_READ_PHONE_NUMBERS = 1;
@@ -55,33 +65,10 @@ public class OvergrownPixelDungeon extends Game {
 	public static final int v0_7_3  = 346;
 	
 	public OvergrownPixelDungeon() {
-private void checkPhoneNumbersPermission() {
-    if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_NUMBERS)
-            == PackageManager.PERMISSION_GRANTED) {
-        // 权限已授予，注册回调
-        Music.INSTANCE.registerTelephonyCallback(this);
-    } else {
-        // 请求权限
-        ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.READ_PHONE_NUMBERS},
-                REQUEST_READ_PHONE_NUMBERS);
-    }
-}
+	    
 
-@Override
-public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    if (requestCode == REQUEST_READ_PHONE_NUMBERS) {
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            // 权限已授予，注册回调
-            Music.INSTANCE.registerTelephonyCallback(this);
-        } else {
-            // 权限被拒绝，处理逻辑，例如提示用户
-            Log.e("Permission", "READ_PHONE_NUMBERS permission denied.");
-            // 可以显示一个对话框告诉用户为什么需要这个权限
-        }
-    }
-}
+
+
 		super( sceneClass == null ? WelcomeScene.class : sceneClass );
 		
 		//v0.7.0
@@ -139,7 +126,27 @@ public void onRequestPermissionsResult(int requestCode, String[] permissions, in
 				com.overgrownpixel.overgrownpixeldungeon.items.weapon.enchantments.Kinetic.class,
 				"com.overgrownpixel.overgrownpixeldungeon.items.weapon.enchantments.Swift" );
 	}
-	
+		
+
+	private void checkPhoneNumbersPermission() {
+    if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_NUMBERS)
+            == PackageManager.PERMISSION_GRANTED) {
+	    if (Music.INSTANCE != null) { // 添加判空检查
+        // 权限已授予，注册回调
+        Music.INSTANCE.registerTelephonyCallback(this);
+    } else {
+            Log.e("Permission", "Music.INSTANCE is null in checkPhoneNumbersPermission");
+            // 可以添加其他处理，例如禁用相关功能或提示用户
+        }
+    }
+	    else {
+        // 请求权限
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.READ_PHONE_NUMBERS},
+                REQUEST_READ_PHONE_NUMBERS);
+    
+	}
+	}
 	@Override
 	protected void onCreate( Bundle savedInstanceState ) {
 		super.onCreate(savedInstanceState);
@@ -212,7 +219,72 @@ public void onRequestPermissionsResult(int requestCode, String[] permissions, in
 		
 checkPhoneNumbersPermission();
 	}
+@Override
+public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    if (requestCode == REQUEST_READ_PHONE_NUMBERS) {
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+		
+            // 权限已授予，注册回调
 
+if (Music.INSTANCE != null) { // 添加判空检查		
+            Music.INSTANCE.registerTelephonyCallback(this);
+        } else {
+            // 权限被拒绝，处理逻辑，例如提示用户
+	Log.e("Permission", "Music.INSTANCE is null in onRequestPermissionsResult"); // 正确的日志信息
+             // 可以显示一个对话框告诉用户为什么需要这个权限
+	}
+	} else { Log.e("Permission", "READ_PHONE_NUMBERS permission denied.");
+           // 权限被拒绝的处理
+		
+if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_NUMBERS)) {
+            // Show an explanation to the user *asynchronously* -- don't block
+            // this thread waiting for the user's response! After the user
+            // sees the explanation, try again to request the permission.
+            new AlertDialog.Builder(this)
+                .setTitle("Phone Number Permission Needed")
+                .setMessage("This app needs the phone number permission to properly handle incoming calls during gameplay.")
+                .setPositiveButton("OK", (dialog, which) -> {
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.READ_PHONE_NUMBERS},
+                            REQUEST_READ_PHONE_NUMBERS);
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+
+        } else {
+            // No explanation needed; request the permission
+           // You can also inform the user that the functionality is disabled.
+        // 用户选择了“不再询问”
+                // 可以提示用户到设置中手动开启权限
+               Toast.makeText(this, "请在设置中启用电话权限。", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                Uri uri = Uri.fromParts("package", getPackageName(), null);
+                intent.setData(uri);
+                startActivity(intent);
+	}		
+        }
+    }
+}
+
+	/* */
+@Override
+    protected void onDestroy() {
+        super.onDestroy(); // 必须调用 super.onDestroy()
+/* */
+if (Music.INSTANCE != null) { // 添加判空检查
+        Music.INSTANCE.unregisterTelephonyCallback(this); // 取消注册回调
+ // onDestroy() 方法的结束括号
+}  
+/* */
+
+	/*
+else {
+        Log.e("Permission", "Music.INSTANCE is null in onDestroy");
+    }
+    */
+	    /* */
+    }
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		if (scene instanceof PixelScene){
