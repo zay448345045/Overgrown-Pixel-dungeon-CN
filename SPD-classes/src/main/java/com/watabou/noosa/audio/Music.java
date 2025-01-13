@@ -31,7 +31,7 @@ import android.telephony.TelephonyManager;
 import android.telephony.TelephonyCallback;
 import com.watabou.noosa.Game;
 import android.content.Context;
-
+import android.util.Log;
 public enum Music {
 	
 	INSTANCE;
