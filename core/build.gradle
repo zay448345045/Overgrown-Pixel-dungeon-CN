@@ -1,6 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
+compileOptions {
+    sourceCompatibility =  JavaVersion.VERSION_23 // 或更高版本
+    targetCompatibility =  JavaVersion.VERSION_23 // 或更高版本
+}
     compileSdkVersion 35//33
     namespace 'com.overgrownpixel.overgrownpixeldungeon'
     defaultConfig {
